@@ -33,21 +33,34 @@ export class Str {
     return this;
   }
 
-  sanitize(): this {
-    this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');
+  studly(): this {
+    this.value = this.value.replace(/[_-]+/g, ' ').replace(/\s(.)/g, (m) => m.toUpperCase()).replace(/\s/g, '').replace(/^(.)/, (m) => m.toUpperCase());
     return this;
   }
 
-  slug(): this {
-    this.value = this.value
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
+  snake(): this {
+    this.value = this.value.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
     return this;
   }
 
-  contains(search: string): boolean {
-    return this.value.includes(search);
+  wrap(before: string = '', after: string = ''): this {
+    this.value = `${before}${this.value}${after}`;
+    return this;
+  }
+
+  toBase64(): this {
+    this.value = Buffer.from(this.value).toString('base64');
+    return this;
+  }
+
+  substr(start: number, length?: number): this {
+    this.value = this.value.substring(start, length ? start + length : undefined);
+    return this;
+  }
+
+  substrReplace(replace: string, start: number, length?: number): this {
+    this.value = this.value.slice(0, start) + replace + this.value.slice(length ? start + length : undefined);
+    return this;
   }
 
   startsWith(search: string): boolean {
@@ -56,6 +69,10 @@ export class Str {
 
   endsWith(search: string): boolean {
     return this.value.endsWith(search);
+  }
+
+  contains(search: string): boolean {
+    return this.value.includes(search);
   }
 
   replace(search: string | RegExp, replace: string): this {
@@ -68,14 +85,53 @@ export class Str {
     return this;
   }
 
-  limit(limit: number, end: string = '...'): this {
-    this.value = this.value.length > limit ? this.value.substring(0, limit) + end : this.value;
+  squish(): this {
+    this.value = this.value.replace(/\s+/g, ' ').trim();
     return this;
   }
 
   trim(): this {
     this.value = this.value.trim();
     return this;
+  }
+
+  stripTags(allowedTags: string = ''): this {
+    this.value = this.value.replace(new RegExp(`<\/?(?!${allowedTags})\w+[^>]*>`, 'g'), '');
+    return this;
+  }
+
+  start(prefix: string): this {
+    if (!this.value.startsWith(prefix)) {
+      this.value = prefix + this.value;
+    }
+    return this;
+  }
+
+  split(pattern: RegExp): string[] {
+    return this.value.split(pattern);
+  }
+
+  when(condition: boolean, callback: (str: this) => this): this {
+    if (condition) {
+      return callback(this);
+    }
+    return this;
+  }
+
+  whenExactly(match: string, callback: (str: this) => this): this {
+    return this.when(this.value === match, callback);
+  }
+
+  whenNotExactly(match: string, callback: (str: this) => this): this {
+    return this.when(this.value !== match, callback);
+  }
+
+  whenStartsWith(match: string, callback: (str: this) => this): this {
+    return this.when(this.value.startsWith(match), callback);
+  }
+
+  whenEndsWith(match: string, callback: (str: this) => this): this {
+    return this.when(this.value.endsWith(match), callback);
   }
 
   get(): string {
