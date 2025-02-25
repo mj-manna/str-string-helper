@@ -3,7 +3,7 @@
     "outDir": "./dist",
     "declaration": true,
     "module": "CommonJS",
-    "target": "ES6",
+    "target": "ESNext",
     "strict": true
   },
   "include": ["src"]

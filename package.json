@@ -1,6 +1,6 @@
 {
-  "name": "string-utils",
-  "version": "1.0.0",
+  "name": "str-string-helper",
+  "version": "1.0.1",
   "description": "A powerful TypeScript utility library for advanced string manipulation.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mj-manna/string-utils.git"
+    "url": "https://github.com/mj-manna/str-string-helper.git"
   },
   "keywords": [
     "string",
@@ -23,7 +23,7 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
+  "devDependencies": {
     "typescript": "^5.7.3"
   }
 }
