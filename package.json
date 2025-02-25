@@ -1,0 +1,29 @@
+{
+  "name": "string-utils",
+  "version": "1.0.0",
+  "description": "A powerful TypeScript utility library for advanced string manipulation.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/string-utils-ts.git"
+  },
+  "keywords": [
+    "string",
+    "utilities",
+    "typescript",
+    "helper"
+  ],
+  "author": "Manna",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "typescript": "^5.7.3"
+  }
+}
